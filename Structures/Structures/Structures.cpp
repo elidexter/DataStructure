@@ -1,41 +1,48 @@
-#include <iostream>
+#include "GlobalLibs.h"
 struct Node
 {
 	int data;
 	Node* next;
 };
-void Insert(Node** head, int x)
+struct Node* head;
+void Insert(int data)
 {
 	struct Node* temp = (Node*)malloc(sizeof(struct Node));
-	temp->data = x;
+	temp->data = data;
 	temp->next = NULL;
-	if (*head != NULL)
+	if (head != NULL)
 	{
-		temp->next = *head;
+		temp->next = head;
 	}
-	*head = temp;		
+	head = temp;
 }
-void Print(Node* head)
+void Print()
 {
-	printf("List is: ");
-	while (head != NULL)
+	Node* temp = head;
+	printf("Values\n");
+	while (temp != NULL)
 	{
-		printf(" %d", head->data);
-		head = head->next;
+		printf("%d ", temp->data);
+		temp = temp->next;
 	}
 	printf("\n");
 }
-int main()
-{    
-	Node* head = NULL;
-	printf("How many numbers?\n");
-	int n, i, x;
-	scanf_s("%d", &n);
-	for (i = 0; i < n; i++)
+void Delete()
+{
+	Node* tempntext = head;
+	head = head->next;
+	free(tempntext);
+}
+void main()
+{
+	head = NULL;
+	int i;
+	for (i = 1; i < 10; i++)
 	{
-		printf("Enter the number \n");
-		scanf_s("%d", &x);
-		Insert(&head, x);
-		Print(head);
-	}
+		Insert(i);
+	}	
+	Print();
+	printf("Remove first\n");
+	Delete();
+	Print();
 }
