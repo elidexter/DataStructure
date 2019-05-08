@@ -6,6 +6,9 @@ struct Node
 	Node* next;
 };
 struct Node* head;
+/*
+Print current linkedlist
+*/
 void Print()
 {
 	Node* temp = head;
@@ -19,20 +22,9 @@ void Print()
 	}
 	printf("\n");
 }
-void InsertAtEnd()
-{
-	int val = 0;
-	printf("Node value to insert:\n");
-	scanf_s("%d", &val);
-	struct Node* temp = (Node*)malloc(sizeof(struct Node));
-	temp->data = val;
-	temp->next = NULL;
-	if (head != NULL)
-	{
-		temp->next = head;
-	}
-	head = temp;
-}
+/*
+Fill out pointer array samples
+*/
 void fill(int data)
 {
 	struct Node* temp = (Node*)malloc(sizeof(struct Node));
@@ -44,6 +36,32 @@ void fill(int data)
 	}
 	head = temp;
 }
+/*
+Create pointer node
+goto end and add to next
+*/
+void InsertAtEnd()
+{
+	int val = 0;
+	printf("Node value to insert:\n");
+	scanf_s("%d", &val);	
+	Node* current = head;	
+	while (current->next!= NULL)
+	{
+		current=current->next;
+	}	
+	struct Node* temp = (Node*)malloc(sizeof(struct Node));
+	temp->data = val;
+	temp->next = NULL;
+	current->next = temp;
+	Print();
+}
+/*
+Create node pointer
+set value
+set next as head
+replace head
+*/
 void InsertAtFirst()
 {
 	int val = 0;
@@ -63,6 +81,9 @@ void InsertAtFirst()
 	}
 	Print();
 }
+/*
+Move to position current before minus 2(to get previous an link)
+*/
 void InsertAtPosition()
 {
 	int val=0, pos,idx;
@@ -70,6 +91,11 @@ void InsertAtPosition()
 	scanf_s("%d", &pos);
 	printf("Node value to insert:\n");
 	scanf_s("%d", &val);
+	if (pos == 0)
+	{
+		printf("Must be greather than 0");
+		return;
+	}
 	struct Node* newnode = (Node*)malloc(sizeof(struct Node));
 	newnode->data = val;
 	newnode->next = NULL;
@@ -92,8 +118,10 @@ void InsertAtPosition()
 		temp->next = newnode;
 	}	
 }
-
-void DeleteFirst()//equivale a eliminar el head y poner el siguiente
+/*
+Get first pointer move to next and delete current
+*/
+void DeleteFirst()
 {
 	if (head == NULL)
 	{
@@ -104,6 +132,9 @@ void DeleteFirst()//equivale a eliminar el head y poner el siguiente
 	head = tempntext->next;
 	free(tempntext);
 }
+/*
+Go to last pointer get previous and put null and delete last
+*/
 void DeleteLast()
 {
 	if (head == NULL)
@@ -137,6 +168,11 @@ void DeleteAt()
 	int n;
 	printf("Node position to delete?\n");
 	scanf_s("%d", &n);	
+	if (n == 0)
+	{
+		printf("Must be greather than 0");
+		return;
+	}
 	if (head == NULL)
 	{
 		printf("LinkedList Empty\n");
@@ -153,6 +189,11 @@ void DeleteAt()
 	for (i = 0; i < n-2; i++)//get node before selected node
 	{
 		temp1 = temp1->next;
+		if (temp1->next == NULL)
+		{
+			printf("Index out array \n");
+			return;
+		}		
 	}
 	struct Node* nodeToDelete = temp1->next;//node to delete	
 	temp1->next = nodeToDelete->next;
@@ -197,6 +238,9 @@ void main()
 				break;
 			case 5:
 				InsertAtFirst();
+				break;
+			case 6:
+				InsertAtEnd();
 				break;
 			case 7:
 				Print();
