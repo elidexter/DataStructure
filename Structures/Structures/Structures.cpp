@@ -20,29 +20,79 @@ void Print()
 {
 	Node* temp = head;
 	printf("Values\n");
+	int p = 1;
 	while (temp != NULL)
 	{
-		printf("%d ", temp->data);
+		printf("Pos: %d Val: %d \n", p, temp->data);
 		temp = temp->next;
+		p++;
 	}
 	printf("\n");
 }
-void Delete()
+void DeleteFirst()//equivale a eliminar el head y poner el siguiente
 {
+	if (head == NULL)
+	{
+		printf("LinkedList Empty\n");
+		return;
+	}	
 	Node* tempntext = head;
-	head = head->next;
+	head = tempntext->next;
 	free(tempntext);
+}
+void DeleteAt()
+{
+	int n;
+	printf("Node position to delete?\n");
+	scanf_s("%d", &n);	
+	if (head == NULL)
+	{
+		printf("LinkedList Empty\n");
+		return;
+	}
+	struct Node* temp1 = head;
+	if (n == 1)
+	{
+		head = temp1->next;
+		free(temp1);
+		return;
+	}
+	int i;
+	for (i = 0; i < n-2; i++)//get node before selected node
+	{
+		temp1 = temp1->next;
+	}
+	struct Node* nodeToDelete = temp1->next;//node to delete	
+	temp1->next = nodeToDelete->next;
+	free(nodeToDelete);	
 }
 void main()
 {
 	head = NULL;
-	int i;
-	for (i = 1; i < 10; i++)
+	int i,d,e;
+	for (i = 5; i> 0; i--)
 	{
 		Insert(i);
 	}	
 	Print();
-	printf("Remove first\n");
-	Delete();
-	Print();
+	do
+	{
+		printf("1.Delete firsth\n");
+		printf("2.Delete at position\n");
+		printf("4.Exit\n");
+		scanf_s("%d", &e);
+		switch (e)
+		{
+			case 1:
+				DeleteFirst();
+				Print();
+				break;
+			case 2:
+				DeleteAt();
+				Print();
+				break;
+			default:
+				break;
+		}		
+	} while (e != 4);	
 }
